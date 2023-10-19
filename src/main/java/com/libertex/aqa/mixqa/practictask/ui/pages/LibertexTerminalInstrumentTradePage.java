@@ -7,16 +7,9 @@ import io.qameta.allure.Step;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
-
 public class LibertexTerminalInstrumentTradePage {
-
-    private SelenideElement instrumentOpenTradeButton = $(".a-submit[data-growth='Buy'][data-reduction='Sell'][data-signal-growth='Buy by signal'][data-signal-reduction='Sell by signal']");
-
-    private SelenideElement notificationField = $("[class='box-row box-row-text'] p");
-
-    public SelenideElement getNotificationField() {
-        return notificationField;
-    }
+    private SelenideElement instrumentOpenTradeButton = $(".a-submit");
+    private SelenideElement notificationField = $(".box-row p");
 
     @Step("Open trade for default instrument")
     public void openDefaultInstrumentTrade()  {
@@ -26,5 +19,10 @@ public class LibertexTerminalInstrumentTradePage {
     @Step("Waiting for successful open default instrument trade notification")
     public void waitingForNotification(){
         notificationField.shouldHave(Condition.visible, Duration.ofSeconds(15));
+    }
+
+    @Step("Get text from successful opened trade notification field")
+        public String getTextFromOpenedTradeField(){
+        return notificationField.getText();
     }
 }

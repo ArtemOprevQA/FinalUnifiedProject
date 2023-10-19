@@ -2,6 +2,7 @@ package com.libertex.aqa.mixqa.practictask.api;
 
 import com.libertex.aqa.mixqa.practictask.api.model.BankDetailsRequestBody;
 import com.libertex.aqa.mixqa.practictask.api.model.BankDetailsResponse;
+import com.libertex.aqa.mixqa.practictask.util.PropertyReader;
 import io.qameta.allure.Step;
 import io.qameta.allure.okhttp3.AllureOkHttp3;
 import lombok.extern.slf4j.Slf4j;
@@ -10,17 +11,15 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 import java.io.IOException;
 import java.util.Base64;
+
 @Slf4j
 public class BankStatementsApiHelper {
-
     private final BankDetailsApiService apiServiceHelper;
+    private static final String BANK_STATEMENTS_ENDPOINT = "/rest/bank_statements_api/";
 
-    private static final String endPoint = "/rest/bank_statements_api/";
     public BankStatementsApiHelper() {
-
         String baseUrl = PropertyReader.getProperty("api.base.url");
 
         final AllureOkHttp3 allureOkHttp3 = new AllureOkHttp3();
@@ -29,7 +28,7 @@ public class BankStatementsApiHelper {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl + endPoint)
+                .baseUrl(baseUrl + BANK_STATEMENTS_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
@@ -39,16 +38,10 @@ public class BankStatementsApiHelper {
 
     @Step("getOrgBankDetails")
     public BankDetailsResponse getOrgBankDetails(String requisite, String languageIso3) throws IOException {
-
-
-        String apiCredentials = PropertyReader.getProperty("APIcredentials");
-
+        String apiCredentials = PropertyReader.getProperty("api.credentials");
         String basicAuth = "Basic " + Base64.getEncoder().encodeToString(apiCredentials.getBytes());
-
         BankDetailsRequestBody requestBody = new BankDetailsRequestBody(requisite, languageIso3);
-
         Call <BankDetailsResponse> call = apiServiceHelper.getOrgBankDetails(basicAuth, requestBody);
-
         return basicValidation(call.execute());
     }
 

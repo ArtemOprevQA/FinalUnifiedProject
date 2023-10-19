@@ -7,10 +7,18 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class LibertexTerminalProfilePage {
 
-    private SelenideElement firstInstrument = $("a.a-btn.new-invest.growth");
+    private SelenideElement firstInstrument = $("a.a-btn.growth");
+    private SelenideElement headerBurgerMenu = $("[class='nav-block-toggle']");
+    private SelenideElement activeTradesButton = $("a.investments-nav");
 
     @Step("Click on the 'Buy' tab for default instrument")
     public void clickOnBuyTabForDefaultInstrument() {
         firstInstrument.click();
+    }
+
+    @Step("Click on the 'Active trades' button from burger menu")
+    public void clickOnActiveTradesButton() {
+        headerBurgerMenu.hover();
+        activeTradesButton.click();
     }
 }

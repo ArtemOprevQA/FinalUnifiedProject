@@ -1,7 +1,5 @@
 package com.libertex.aqa.mixqa.practictask.api;
 
-public class BaseTest {
-
+public class BaseTestAPI {
     protected BankStatementsApiHelper bankStatementsApiHelper = new BankStatementsApiHelper();
-
 }

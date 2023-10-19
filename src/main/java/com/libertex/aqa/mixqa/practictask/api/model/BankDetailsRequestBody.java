@@ -8,6 +8,4 @@ import lombok.Data;
 public class BankDetailsRequestBody{
     private String requisite;
     private String languageIso3;
-
-
 }

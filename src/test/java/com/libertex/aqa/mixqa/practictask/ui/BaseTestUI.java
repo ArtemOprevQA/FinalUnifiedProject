@@ -5,37 +5,28 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.libertex.aqa.mixqa.practictask.ui.pages.LibertexTerminalLoginPage;
 import com.libertex.aqa.mixqa.practictask.ui.pages.LibertexTerminalMainPage;
-import org.openqa.selenium.By;
+import com.libertex.aqa.mixqa.practictask.util.PropertyReader;
+import lombok.extern.slf4j.Slf4j;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-
+import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$;
 
-;
-
-public class BaseTest {
-
+@Slf4j
+public class BaseTestUI {
     protected LibertexTerminalMainPage libertexTerminalMainPage = new LibertexTerminalMainPage();
-
     protected LibertexTerminalLoginPage libertexTerminalLoginPage = new LibertexTerminalLoginPage();
-
-    String email = PropertyReader.getProperty("UIcredentials.email");
-
-    String password = PropertyReader.getProperty("UIcredentials.password");
-
+    protected String email = PropertyReader.getProperty("ui.credentials.email");
+    protected String password = PropertyReader.getProperty("ui.credentials.password");
 
     @BeforeSuite
     public void setupBrowser() {
-
-        //Configuration.browser = System.getProperty("browser");
-        Configuration.browser = System.getProperty("browser");
+        Configuration.browser = PropertyReader.getProperty("ui.browser");
     }
 
-    @BeforeTest
+    @BeforeClass
     public void openLibertexTerminal() {
-
-        Selenide.open(System.getProperty("BASE_URL"));
-
-        $((By.xpath("//span[contains(@class, 'login-btn')]"))).shouldBe(Condition.visible);
+        Selenide.open(PropertyReader.getProperty("ui.base.url"));
+        $(".login-btn").shouldBe(Condition.visible, Duration.ofSeconds(5));
     }
 }

@@ -1,4 +1,4 @@
-package com.libertex.aqa.mixqa.practictask.ui;
+package com.libertex.aqa.mixqa.practictask.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
