@@ -1,5 +1,6 @@
 package com.libertex.aqa.mixqa.practictask.ui.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
@@ -13,7 +14,7 @@ public class LibertexTerminalProfilePage {
 
     @Step("Click on the 'Buy' tab for default instrument")
     public void clickOnBuyTabForDefaultInstrument() {
-        firstInstrument.click();
+        firstInstrument.shouldBe(Condition.visible).click();
     }
 
     @Step("Click on the 'Active trades' button from burger menu")
