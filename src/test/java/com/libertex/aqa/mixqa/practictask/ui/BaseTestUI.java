@@ -14,8 +14,8 @@ import static com.codeborne.selenide.Selenide.$;
 
 @Slf4j
 public class BaseTestUI {
-    protected LibertexTerminalMainPage libertexTerminalMainPage = new LibertexTerminalMainPage();
-    protected LibertexTerminalLoginPage libertexTerminalLoginPage = new LibertexTerminalLoginPage();
+    protected LibertexTerminalMainPage MainPage = new LibertexTerminalMainPage();
+    protected LibertexTerminalLoginPage LoginPage = new LibertexTerminalLoginPage();
     protected String email = PropertyReader.getProperty("ui.credentials.email");
     protected String password = PropertyReader.getProperty("ui.credentials.password");
 

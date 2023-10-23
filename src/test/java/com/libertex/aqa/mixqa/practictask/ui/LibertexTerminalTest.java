@@ -1,48 +1,51 @@
 package com.libertex.aqa.mixqa.practictask.ui;
 
+import com.libertex.aqa.mixqa.practictask.ui.pages.LibertexTerminalActiveTradesPage;
 import com.libertex.aqa.mixqa.practictask.ui.pages.LibertexTerminalInstrumentTradePage;
 import com.libertex.aqa.mixqa.practictask.ui.pages.LibertexTerminalProfilePage;
-import com.libertex.aqa.mixqa.practictask.ui.pages.LibertexTerminalActiveTradesPage;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 public class LibertexTerminalTest extends BaseTestUI {
-    private LibertexTerminalProfilePage libertexTerminalProfilePage = new LibertexTerminalProfilePage();
-    private LibertexTerminalInstrumentTradePage libertexTerminalInstrumentTradePage = new LibertexTerminalInstrumentTradePage();
-    private LibertexTerminalActiveTradesPage libertexTerminalActiveTradesPage = new LibertexTerminalActiveTradesPage();
+    private LibertexTerminalProfilePage ProfilePage = new LibertexTerminalProfilePage();
+    private LibertexTerminalInstrumentTradePage InstrumentTradePage = new LibertexTerminalInstrumentTradePage();
+    private LibertexTerminalActiveTradesPage ActiveTradesPage = new LibertexTerminalActiveTradesPage();
 
+    @Test(description = "Test of successful login the Libertex Terminal", priority = 1)
+    public void testLoginLibertexTerminal() {
+        MainPage.clickLoginButton();
+        LoginPage.inputCredentials(email, password);
+        LoginPage.clickLoginButton();
 
-    @Test(description = "Test open and close trade in the Libertex Terminal")
-    public void testOpenAndCloseTradeInLibertexTerminal()  {
+        Assertions.assertThat(ProfilePage.getFirstInstrument().isDisplayed()).isTrue();
+    }
 
-        libertexTerminalMainPage.clickLoginButton();
+    @Test(description = "Test of successful open a trade", priority = 2)
+    public void testOpenATrade() {
+        ProfilePage.clickOnBuyTabForDefaultInstrument();
+        InstrumentTradePage.openDefaultInstrumentTrade();
+        InstrumentTradePage.waitingForNotification();
 
-        libertexTerminalLoginPage.inputCredentials(email, password);
-        libertexTerminalLoginPage.clickLoginButton();
+        Assertions.assertThat(InstrumentTradePage.getTextFromOpenedTradeField()).contains("Successful trade! Your balance will be updated shortly.");
+        }
 
-        libertexTerminalProfilePage.clickOnBuyTabForDefaultInstrument();
+    @Test(description = "Test of successful close a trade", priority = 3)
+    public void testCloseATrade() {
+        ProfilePage.clickOnActiveTradesButton();
+        ActiveTradesPage.clickCloseAllTradesMenuButton();
+        ActiveTradesPage.clickCloseAllTradesButton();
+        ActiveTradesPage.clickCloseOutButton();
+        ActiveTradesPage.waitingForSuccessfulCloseOutNotification();
 
-        libertexTerminalInstrumentTradePage.openDefaultInstrumentTrade();
-        libertexTerminalInstrumentTradePage.waitingForNotification();
+        Assertions.assertThat(ActiveTradesPage.getTextFromSuccessfulCloseOutNotificationField()).contains("All trades have been closed!");
 
-        Assertions.assertThat(libertexTerminalInstrumentTradePage.getTextFromOpenedTradeField()).contains("Successful trade! Your balance will be updated shortly.");
+        ActiveTradesPage.clickGoBackToTradingButton();
+        ActiveTradesPage.waitingForSuccessfulUpdateOfClosedTrade();
 
-        libertexTerminalProfilePage.clickOnActiveTradesButton();
+        Assertions.assertThat(ActiveTradesPage.getTextFromUsedAmountField()).contains("0.00");
 
-        libertexTerminalActiveTradesPage.clickCloseAllTradesMenuButton();
-        libertexTerminalActiveTradesPage.clickCloseAllTradesButton();
-        libertexTerminalActiveTradesPage.clickCloseOutButton();
-        libertexTerminalActiveTradesPage.waitingForSuccessfulCloseOutNotification();
+        Assertions.assertThat(ActiveTradesPage.getTextFromProfitAmountField()).contains("0.00");
 
-        Assertions.assertThat(libertexTerminalActiveTradesPage.getTextFromSuccessfulCloseOutNotificationField()).contains("All trades have been closed!");
-
-        libertexTerminalActiveTradesPage.clickGoBackToTradingButton();
-
-        Assertions.assertThat(libertexTerminalActiveTradesPage.getTextFromUsedAmountField()).contains("0.00");
-
-        Assertions.assertThat(libertexTerminalActiveTradesPage.getTextFromProfitAmountField()).contains("0.00");
-
-        Assertions.assertThat(libertexTerminalActiveTradesPage.getTextFromResultAmountField()).contains("0.00");
-
+        Assertions.assertThat(ActiveTradesPage.getTextFromResultAmountField()).contains("0.00");
     }
 }

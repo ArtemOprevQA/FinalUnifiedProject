@@ -37,6 +37,13 @@ public class LibertexTerminalActiveTradesPage {
         successfulCloseOutNotificationField.shouldHave(Condition.visible, Duration.ofSeconds(10));
     }
 
+    @Step("Waiting for successful update of closed trade amounts")
+    public void waitingForSuccessfulUpdateOfClosedTrade(){
+        usedAmountField.shouldHave(Condition.text("0.00"), Duration.ofSeconds(4));
+        resultAmountField.shouldHave(Condition.text("0.00"), Duration.ofSeconds(4));
+        profitAmountField.shouldHave(Condition.text("0.00"), Duration.ofSeconds(4));
+    }
+
     @Step("Get text from successful opened trade notification field")
     public String getTextFromSuccessfulCloseOutNotificationField(){
         return successfulCloseOutNotificationField.getText();
