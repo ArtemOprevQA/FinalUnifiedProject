@@ -7,45 +7,45 @@ import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 public class LibertexTerminalTest extends BaseTestUI {
-    private LibertexTerminalProfilePage ProfilePage = new LibertexTerminalProfilePage();
-    private LibertexTerminalInstrumentTradePage InstrumentTradePage = new LibertexTerminalInstrumentTradePage();
-    private LibertexTerminalActiveTradesPage ActiveTradesPage = new LibertexTerminalActiveTradesPage();
+    private LibertexTerminalProfilePage profilePage = new LibertexTerminalProfilePage();
+    private LibertexTerminalInstrumentTradePage instrumentTradePage = new LibertexTerminalInstrumentTradePage();
+    private LibertexTerminalActiveTradesPage activeTradesPage = new LibertexTerminalActiveTradesPage();
 
     @Test(description = "Test of successful login the Libertex Terminal", priority = 1)
     public void testLoginLibertexTerminal() {
-        MainPage.clickLoginButton();
-        LoginPage.inputCredentials(email, password);
-        LoginPage.clickLoginButton();
+        mainPage.clickLoginButton();
+        loginPage.inputCredentials(email, password);
+        loginPage.clickLoginButton();
 
-        Assertions.assertThat(ProfilePage.getFirstInstrument().isDisplayed()).isTrue();
+        Assertions.assertThat(profilePage.getFirstInstrument().isDisplayed()).isTrue();
     }
 
     @Test(description = "Test of successful open a trade", priority = 2)
     public void testOpenATrade() {
-        ProfilePage.clickOnBuyTabForDefaultInstrument();
-        InstrumentTradePage.openDefaultInstrumentTrade();
-        InstrumentTradePage.waitingForNotification();
+        profilePage.clickOnBuyTabForDefaultInstrument();
+        instrumentTradePage.openDefaultInstrumentTrade();
+        instrumentTradePage.waitingForNotification();
 
-        Assertions.assertThat(InstrumentTradePage.getTextFromOpenedTradeField()).contains("Successful trade! Your balance will be updated shortly.");
+        Assertions.assertThat(instrumentTradePage.getTextFromOpenedTradeField()).contains("Successful trade! Your balance will be updated shortly.");
         }
 
     @Test(description = "Test of successful close a trade", priority = 3)
     public void testCloseATrade() {
-        ProfilePage.clickOnActiveTradesButton();
-        ActiveTradesPage.clickCloseAllTradesMenuButton();
-        ActiveTradesPage.clickCloseAllTradesButton();
-        ActiveTradesPage.clickCloseOutButton();
-        ActiveTradesPage.waitingForSuccessfulCloseOutNotification();
+        profilePage.clickOnActiveTradesButton();
+        activeTradesPage.clickCloseAllTradesMenuButton();
+        activeTradesPage.clickCloseAllTradesButton();
+        activeTradesPage.clickCloseOutButton();
+        activeTradesPage.waitingForSuccessfulCloseOutNotification();
 
-        Assertions.assertThat(ActiveTradesPage.getTextFromSuccessfulCloseOutNotificationField()).contains("All trades have been closed!");
+        Assertions.assertThat(activeTradesPage.getTextFromSuccessfulCloseOutNotificationField()).contains("All trades have been closed!");
 
-        ActiveTradesPage.clickGoBackToTradingButton();
-        ActiveTradesPage.waitingForSuccessfulUpdateOfClosedTrade();
+        activeTradesPage.clickGoBackToTradingButton();
+        activeTradesPage.waitingForSuccessfulUpdateOfClosedTrade();
 
-        Assertions.assertThat(ActiveTradesPage.getTextFromUsedAmountField()).contains("0.00");
+        Assertions.assertThat(activeTradesPage.getTextFromUsedAmountField()).contains("0.00");
 
-        Assertions.assertThat(ActiveTradesPage.getTextFromProfitAmountField()).contains("0.00");
+        Assertions.assertThat(activeTradesPage.getTextFromProfitAmountField()).contains("0.00");
 
-        Assertions.assertThat(ActiveTradesPage.getTextFromResultAmountField()).contains("0.00");
+        Assertions.assertThat(activeTradesPage.getTextFromResultAmountField()).contains("0.00");
     }
 }
