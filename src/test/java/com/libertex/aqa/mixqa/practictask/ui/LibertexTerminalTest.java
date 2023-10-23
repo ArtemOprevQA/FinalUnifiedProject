@@ -7,9 +7,10 @@ import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 public class LibertexTerminalTest extends BaseTestUI {
-    protected LibertexTerminalProfilePage libertexTerminalProfilePage = new LibertexTerminalProfilePage();
-    protected LibertexTerminalInstrumentTradePage libertexTerminalInstrumentTradePage = new LibertexTerminalInstrumentTradePage();
-    protected LibertexTerminalActiveTradesPage libertexTerminalActiveTradesPage = new LibertexTerminalActiveTradesPage();
+    private LibertexTerminalProfilePage libertexTerminalProfilePage = new LibertexTerminalProfilePage();
+    private LibertexTerminalInstrumentTradePage libertexTerminalInstrumentTradePage = new LibertexTerminalInstrumentTradePage();
+    private LibertexTerminalActiveTradesPage libertexTerminalActiveTradesPage = new LibertexTerminalActiveTradesPage();
+
 
     @Test(description = "Test open and close trade in the Libertex Terminal")
     public void testOpenAndCloseTradeInLibertexTerminal()  {
