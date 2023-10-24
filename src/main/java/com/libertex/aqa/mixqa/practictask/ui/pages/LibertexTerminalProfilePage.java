@@ -14,7 +14,6 @@ public class LibertexTerminalProfilePage {
     private SelenideElement headerBurgerMenu = $("[class='nav-block-toggle']");
     private SelenideElement activeTradesButton = $("a.investments-nav");
 
-
     public SelenideElement getFirstInstrument() {
         firstInstrument.shouldHave(Condition.visible, Duration.ofSeconds(10));
         return firstInstrument;
@@ -27,7 +26,6 @@ public class LibertexTerminalProfilePage {
 
     @Step("Click on the 'Active trades' button from burger menu")
     public void clickOnActiveTradesButton() {
-
         headerBurgerMenu.shouldBe(Condition.visible, Duration.ofSeconds(10)).hover();
         activeTradesButton.shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
     }

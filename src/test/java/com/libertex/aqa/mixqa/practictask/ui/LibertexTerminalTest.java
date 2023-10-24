@@ -46,9 +46,7 @@ public class LibertexTerminalTest extends BaseTestUI {
         activeTradesPage.waitingForSuccessfulUpdateOfClosedTrade();
 
         Assertions.assertThat(activeTradesPage.getTextFromUsedAmountField()).contains(EXPECTED_AMOUNT_VALUE);
-
         Assertions.assertThat(activeTradesPage.getTextFromProfitAmountField()).contains(EXPECTED_AMOUNT_VALUE);
-
         Assertions.assertThat(activeTradesPage.getTextFromResultAmountField()).contains(EXPECTED_AMOUNT_VALUE);
     }
 }

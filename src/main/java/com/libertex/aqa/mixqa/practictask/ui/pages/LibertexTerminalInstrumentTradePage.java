@@ -7,6 +7,7 @@ import io.qameta.allure.Step;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
+
 public class LibertexTerminalInstrumentTradePage {
     private SelenideElement instrumentOpenTradeButton = $(".a-submit");
     private SelenideElement notificationField = $(".box-row p");
