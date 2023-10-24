@@ -14,13 +14,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 import java.util.Base64;
 
+import static com.libertex.aqa.mixqa.practictask.constants.Properties.API_BASE_URL;
+import static com.libertex.aqa.mixqa.practictask.constants.Properties.API_CREDENTIALS;
+
 @Slf4j
 public class BankStatementsApiHelper {
     private final BankDetailsApiService apiServiceHelper;
     private static final String BANK_STATEMENTS_ENDPOINT = "/rest/bank_statements_api/";
 
     public BankStatementsApiHelper() {
-        String baseUrl = PropertyReader.getProperty("api.base.url");
+        String baseUrl = PropertyReader.getProperty(API_BASE_URL);
 
         final AllureOkHttp3 allureOkHttp3 = new AllureOkHttp3();
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -38,7 +41,7 @@ public class BankStatementsApiHelper {
 
     @Step("getOrgBankDetails")
     public BankDetailsResponse getOrgBankDetails(String requisite, String languageIso3) throws IOException {
-        String apiCredentials = PropertyReader.getProperty("api.credentials");
+        String apiCredentials = PropertyReader.getProperty(API_CREDENTIALS);
         String basicAuth = "Basic " + Base64.getEncoder().encodeToString(apiCredentials.getBytes());
         BankDetailsRequestBody requestBody = new BankDetailsRequestBody(requisite, languageIso3);
         Call <BankDetailsResponse> call = apiServiceHelper.getOrgBankDetails(basicAuth, requestBody);

@@ -11,9 +11,12 @@ public class LibertexTerminalTest extends BaseTestUI {
     private LibertexTerminalInstrumentTradePage instrumentTradePage = new LibertexTerminalInstrumentTradePage();
     private LibertexTerminalActiveTradesPage activeTradesPage = new LibertexTerminalActiveTradesPage();
 
+    private String EXPECTED_AMOUNT_VALUE = "0.00";
+
     @Test(description = "Test of successful login the Libertex Terminal", priority = 1)
     public void testLoginLibertexTerminal() {
         mainPage.clickLoginButton();
+        loginPage.waitForLibertexTerminalLoginPageLoaded();
         loginPage.inputCredentials(email, password);
         loginPage.clickLoginButton();
 
@@ -42,10 +45,10 @@ public class LibertexTerminalTest extends BaseTestUI {
         activeTradesPage.clickGoBackToTradingButton();
         activeTradesPage.waitingForSuccessfulUpdateOfClosedTrade();
 
-        Assertions.assertThat(activeTradesPage.getTextFromUsedAmountField()).contains("0.00");
+        Assertions.assertThat(activeTradesPage.getTextFromUsedAmountField()).contains(EXPECTED_AMOUNT_VALUE);
 
-        Assertions.assertThat(activeTradesPage.getTextFromProfitAmountField()).contains("0.00");
+        Assertions.assertThat(activeTradesPage.getTextFromProfitAmountField()).contains(EXPECTED_AMOUNT_VALUE);
 
-        Assertions.assertThat(activeTradesPage.getTextFromResultAmountField()).contains("0.00");
+        Assertions.assertThat(activeTradesPage.getTextFromResultAmountField()).contains(EXPECTED_AMOUNT_VALUE);
     }
 }

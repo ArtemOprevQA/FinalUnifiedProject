@@ -27,7 +27,8 @@ public class LibertexTerminalProfilePage {
 
     @Step("Click on the 'Active trades' button from burger menu")
     public void clickOnActiveTradesButton() {
-        headerBurgerMenu.hover();
-        activeTradesButton.click();
+
+        headerBurgerMenu.shouldBe(Condition.visible, Duration.ofSeconds(10)).hover();
+        activeTradesButton.shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
     }
 }

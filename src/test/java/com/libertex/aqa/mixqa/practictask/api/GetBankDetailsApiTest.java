@@ -12,6 +12,8 @@ import java.util.List;
 public class GetBankDetailsApiTest extends BaseTestAPI {
     private static final String REQUSITE = "LV51RTMB0000621806801";
     private static final String LANGUAGE_ISO3 = "rus";
+    private static final String TEST_BANK_NAME = "JSC RIETUMU BANKA";
+    private static final String SWIFT = "SWIFT";
 
     @Test(description = "Response body contains bank name - JSC RIETUMU BANKA")
     public void testGetOrgBankDetails() throws IOException {
@@ -19,8 +21,8 @@ public class GetBankDetailsApiTest extends BaseTestAPI {
 
         List<Requisite> requisites = response.getRequisites();
         boolean isBankWithSwift = requisites.stream()
-                .filter(requisite -> requisite.getBankInfo().getName().equals("JSC RIETUMU BANKA"))
-                .anyMatch(requisite -> requisite.getBankInfo().getCodeType().equals("SWIFT"));
+                .filter(requisite -> requisite.getBankInfo().getName().equals(TEST_BANK_NAME))
+                .anyMatch(requisite -> requisite.getBankInfo().getCodeType().equals(SWIFT));
 
         Assertions.assertThat(isBankWithSwift).isTrue();
     }
