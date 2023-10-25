@@ -21,6 +21,7 @@ public class BaseTestUI {
     @BeforeSuite
     public void setupBrowser() {
         Configuration.browser = PropertyReader.getProperty(UI_BROWSER);
+        Configuration.browserSize = "1920x1200";
     }
 
     @BeforeClass
