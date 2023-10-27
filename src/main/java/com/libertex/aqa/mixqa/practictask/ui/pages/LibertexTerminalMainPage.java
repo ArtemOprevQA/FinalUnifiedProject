@@ -9,7 +9,10 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LibertexTerminalMainPage {
-    private SelenideElement loginButton = $("a[href='/login']");
+
+    //private SelenideElement loginButton = $("a[href='/login']");
+    private SelenideElement loginButton = $("span.a-btn.login-btn, a[href='/login']");
+
 
     @Step("Wait for Libertex Terminal main page loaded")
     public void waitForLibertexTerminalMainPageLoaded() {
